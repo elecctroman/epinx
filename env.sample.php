@@ -5,6 +5,7 @@ return [
     'APP_URL' => 'http://localhost',
     'APP_NAME' => 'Epinx',
     'APP_KEY' => 'base64:CHANGE_ME',
+    'CRON_KEY' => 'change-me',
     'DB_HOST' => '127.0.0.1',
     'DB_PORT' => '3306',
     'DB_DATABASE' => 'epinx',

@@ -36,6 +36,11 @@ class StoreController extends ControllerBase
             'cartQuantity' => $this->cart->totalQuantity(),
             'success' => $this->getFlash('success'),
             'error' => $this->getFlash('error'),
+            'meta' => [
+                'description' => 'Instant delivery for digital products, gift cards, and top-up credits with trusted suppliers.',
+                'canonical' => app_url('/store'),
+                'image' => asset_url('assets/img/storefront.svg'),
+            ],
         ]);
     }
 
@@ -66,6 +71,15 @@ class StoreController extends ControllerBase
             'categorySlug' => $slug,
             'category' => $category,
             'cartQuantity' => $this->cart->totalQuantity(),
+            'meta' => [
+                'title' => $category['name'] . ' | Epinx',
+                'description' => trim((string) ($category['description'] ?? 'Discover offers in ' . $category['name'])),
+                'canonical' => app_url('/kategori/' . $slug),
+                'schema' => [$this->breadcrumbSchema([
+                    ['name' => 'Store', 'item' => app_url('/store')],
+                    ['name' => $category['name'], 'item' => app_url('/kategori/' . $slug)],
+                ])],
+            ],
         ]);
     }
 
@@ -83,6 +97,20 @@ class StoreController extends ControllerBase
             'cartQuantity' => $this->cart->totalQuantity(),
             'success' => $this->getFlash('success'),
             'error' => $this->getFlash('error'),
+            'meta' => [
+                'title' => ($product['name'] ?? 'Product') . ' | Epinx',
+                'description' => substr(strip_tags((string) ($product['description'] ?? '')), 0, 160),
+                'canonical' => app_url('/urun/' . $slug),
+                'image' => asset_url('assets/img/storefront.svg'),
+                'schema' => [
+                    $this->productSchema($product),
+                    $this->breadcrumbSchema([
+                        ['name' => 'Store', 'item' => app_url('/store')],
+                        ['name' => $product['category_name'] ?? 'Category', 'item' => app_url('/kategori/' . ($product['category_slug'] ?? ''))],
+                        ['name' => $product['name'] ?? 'Product', 'item' => app_url('/urun/' . $slug)],
+                    ]),
+                ],
+            ],
         ]);
     }
 
@@ -115,6 +143,65 @@ class StoreController extends ControllerBase
             'filters' => $filters,
             'cartQuantity' => $this->cart->totalQuantity(),
             'error' => $this->getFlash('error'),
+            'meta' => [
+                'title' => 'Search results for ' . $data['q'] . ' | Epinx',
+                'description' => 'Find digital goods related to ' . $data['q'] . ' with instant delivery.',
+                'canonical' => app_url('/arama?q=' . urlencode($data['q'])),
+            ],
         ]);
+    }
+
+    /**
+     * @param array<string, mixed> $product
+     * @return array<string, mixed>
+     */
+    private function productSchema(array $product): array
+    {
+        $variants = $product['variants'] ?? [];
+        $availableStock = 0;
+        if (is_array($variants)) {
+            foreach ($variants as $variant) {
+                $availableStock += (int) ($variant['available_stock'] ?? 0);
+            }
+        }
+
+        $offers = [
+            '@type' => 'Offer',
+            'priceCurrency' => $product['currency'] ?? 'USD',
+            'price' => number_format((float) ($product['price'] ?? 0), 2, '.', ''),
+            'availability' => 'https://schema.org/' . ($availableStock > 0 ? 'InStock' : 'PreOrder'),
+        ];
+
+        return [
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => $product['name'] ?? '',
+            'description' => strip_tags((string) ($product['description'] ?? '')),
+            'category' => $product['category_name'] ?? null,
+            'offers' => $offers,
+        ];
+    }
+
+    /**
+     * @param array<int, array{name:string,item:string}> $crumbs
+     * @return array<string, mixed>
+     */
+    private function breadcrumbSchema(array $crumbs): array
+    {
+        $itemList = [];
+        foreach ($crumbs as $index => $crumb) {
+            $itemList[] = [
+                '@type' => 'ListItem',
+                'position' => $index + 1,
+                'name' => $crumb['name'],
+                'item' => $crumb['item'],
+            ];
+        }
+
+        return [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => $itemList,
+        ];
     }
 }

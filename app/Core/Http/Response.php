@@ -26,6 +26,20 @@ class Response
         return new self($content, $status, $headers);
     }
 
+    public static function text(string $content, int $status = 200, array $headers = []): self
+    {
+        $headers['Content-Type'] = 'text/plain; charset=utf-8';
+
+        return new self($content, $status, $headers);
+    }
+
+    public static function xml(string $content, int $status = 200, array $headers = []): self
+    {
+        $headers['Content-Type'] = 'application/xml; charset=utf-8';
+
+        return new self($content, $status, $headers);
+    }
+
     public function send(): void
     {
         http_response_code($this->status);
