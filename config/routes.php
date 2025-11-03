@@ -22,6 +22,8 @@ return [
         '/order/{reference}/confirmation' => ['uses' => 'OrderController@confirmation', 'name' => 'order.confirmation'],
         '/order/{reference}/codes' => ['uses' => 'OrderController@codes', 'middleware' => ['auth'], 'name' => 'order.codes'],
         '/order/{reference}/status' => ['uses' => 'OrderController@updateStatus', 'name' => 'order.status'],
+        '/sitemap.xml' => ['uses' => 'SeoController@sitemap', 'name' => 'seo.sitemap'],
+        '/robots.txt' => ['uses' => 'SeoController@robots', 'name' => 'seo.robots'],
     ],
     'POST' => [
         '/login' => ['uses' => 'AuthController@login', 'name' => 'login.submit'],

@@ -30,7 +30,7 @@ ob_start();
             </form>
         </div>
         <div class="text-center">
-            <img src="<?= asset_url('assets/img/storefront.svg'); ?>" alt="Digital storefront illustration" class="img-fluid" style="max-width: 260px;">
+            <img src="<?= asset_url('assets/img/storefront.svg'); ?>" alt="Digital storefront illustration" class="img-fluid" style="max-width: 260px;" loading="lazy">
         </div>
     </div>
 </section>
@@ -41,7 +41,7 @@ ob_start();
         <div class="carousel-inner rounded-4 shadow-sm">
             <?php foreach ($banners as $index => $banner): ?>
                 <div class="carousel-item<?= $index === 0 ? ' active' : ''; ?>">
-                    <img src="<?= escape($banner['image_path']); ?>" class="d-block w-100" alt="<?= escape($banner['title']); ?>">
+                    <img src="<?= escape($banner['image_path']); ?>" class="d-block w-100" alt="<?= escape($banner['title']); ?>" loading="lazy">
                     <?php if (!empty($banner['title'])): ?>
                         <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3">
                             <h2 class="h5 mb-0"><?= escape($banner['title']); ?></h2>

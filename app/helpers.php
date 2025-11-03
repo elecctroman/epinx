@@ -32,6 +32,18 @@ if (!function_exists('asset_url')) {
     }
 }
 
+if (!function_exists('app_url')) {
+    function app_url(string $path = '/'): string
+    {
+        $base = (string) Env::get('APP_URL', '');
+        if ($base === '') {
+            return '/' . ltrim($path, '/');
+        }
+
+        return rtrim($base, '/') . '/' . ltrim($path, '/');
+    }
+}
+
 if (!function_exists('route')) {
     /**
      * @param array<string, bool|float|int|string> $parameters
