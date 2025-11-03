@@ -1,0 +1,12 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Digital storefront illustration</title>
+  <desc id="desc">Abstract storefront graphic with card panels</desc>
+  <rect width="400" height="260" rx="24" fill="#0d6efd" opacity="0.1"/>
+  <rect x="40" y="40" width="320" height="160" rx="16" fill="#0d6efd" opacity="0.2"/>
+  <rect x="60" y="60" width="280" height="120" rx="12" fill="#0d6efd" opacity="0.35"/>
+  <rect x="80" y="80" width="120" height="80" rx="12" fill="#0d6efd"/>
+  <rect x="220" y="80" width="100" height="40" rx="12" fill="#6610f2"/>
+  <rect x="220" y="130" width="140" height="30" rx="12" fill="#6f42c1" opacity="0.85"/>
+  <circle cx="140" cy="120" r="26" fill="#fff" opacity="0.8"/>
+  <path d="M132 125l6-8 8 10" stroke="#0d6efd" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

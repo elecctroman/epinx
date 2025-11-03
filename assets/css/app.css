@@ -1,0 +1,59 @@
+:root {
+    color-scheme: light dark;
+}
+
+body {
+    background: var(--bs-body-bg);
+    min-height: 100vh;
+    font-feature-settings: "liga", "kern";
+}
+
+.hero {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.15), rgba(111, 66, 193, 0.15));
+}
+
+.navbar .badge {
+    font-size: 0.75rem;
+}
+
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+[data-bs-theme='dark'] body,
+body[data-bs-theme='dark'] {
+    background-color: #0b0f19;
+    color: #f8f9fa;
+}
+
+[data-bs-theme='dark'] .card,
+body[data-bs-theme='dark'] .card {
+    background-color: #151b2d;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.recaptcha-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    max-height: 320px;
+}
+
+.table thead th {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+.btn-outline-light span {
+    display: inline-flex;
+    align-items: center;
+}
